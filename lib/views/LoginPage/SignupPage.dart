@@ -1,26 +1,32 @@
-import 'package:dangnhap/views/LoginPage/AdditionalInforPage.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dangnhap/views/LoginPage/LoginPage.dart';
+import 'package:flutter/material.dart';
 
 class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: const Text(
-          "Đăng Ký",
-          style: TextStyle(fontSize: 25),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Đăng Kí",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
-        leading: CupertinoButton(
-          padding: EdgeInsets.zero,
-          child: const Icon(
-            CupertinoIcons.back,
+        centerTitle: true,
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            },
+            child: const Text(
+              "Đăng Nhập",
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        ],
       ),
-      child: SignupForm(),
+      body: SignupForm(),
     );
   }
 }
@@ -44,60 +50,122 @@ class SignupForm extends StatelessWidget {
                 width: 250,
                 height: 250,
                 child: Image.asset(
-                  "assets/images/key1.jpg",
+                  "assets/images/logup.png",
                   scale: 0.8,
                 ),
               ),
-              CupertinoTextField(
-                controller: usernameController,
-                placeholder: "Tên người dùng",
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: CupertinoColors.systemGrey),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
               const SizedBox(height: 16),
-              CupertinoTextField(
+              TextField(
                 controller: emailController,
-                placeholder: "Email",
-                keyboardType: TextInputType.emailAddress,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: CupertinoColors.systemGrey),
-                  borderRadius: BorderRadius.circular(8),
+                decoration: InputDecoration(
+                  labelText: "User",
+                  labelStyle: const TextStyle(color: Colors.white),
+                  hintText: "Nhập user",
+                  hintStyle: const TextStyle(color: Colors.white),
+                  prefixIcon: const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Colors.white)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(
+                        color: Colors.blue), // Màu viền khi focus
+                  ),
                 ),
+                keyboardType: TextInputType.multiline,
               ),
               const SizedBox(height: 16),
-              CupertinoTextField(
-                controller: passwordController,
-                placeholder: "Mật khẩu",
-                obscureText: true,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: CupertinoColors.systemGrey),
-                  borderRadius: BorderRadius.circular(8),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  labelStyle: const TextStyle(color: Colors.white),
+                  hintText: "Nhập email",
+                  hintStyle: const TextStyle(color: Colors.white),
+                  prefixIcon: const Icon(
+                    Icons.email,
+                    color: Colors.white,
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Colors.white)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(
+                        color: Colors.blue), // Màu viền khi focus
+                  ),
                 ),
+                keyboardType: TextInputType.emailAddress,
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: "Mật khẩu",
+                  labelStyle: const TextStyle(color: Colors.white),
+                  hintText: "Nhập mật khẩu",
+                  hintStyle: const TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Colors.white)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(
+                        color: Colors.blue), // Màu viền khi focus
+                  ),
+                ),
+                keyboardType: TextInputType.visiblePassword,
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: "Config Mật khẩu",
+                  labelStyle: const TextStyle(color: Colors.white),
+                  hintText: "Nhập lại mật khẩu",
+                  hintStyle: const TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Colors.white)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(
+                        color: Colors.blue), // Màu viền khi focus
+                  ),
+                ),
+                keyboardType: TextInputType.visiblePassword,
               ),
               const SizedBox(height: 32),
-              CupertinoButton(
+              ElevatedButton(
                 onPressed: () {
-                  // Chuyển đến màn hình thông tin bổ sung
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => AdditionalInfoPage(
-                        username: usernameController.text,
-                        email: emailController.text,
-                      ),
-                    ),
-                  );
+                  // Xử lý đăng nhập
+                  print("Email: ${emailController.text}");
+                  print("Mật khẩu: ${passwordController.text}");
                 },
-                color: CupertinoColors.label,
-                child: const Text("Đăng Ký"),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                ),
+                child: const Text(
+                  "Đăng Nhập",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () {
+                  // Handle forgot password action
+                  print("Forgot password?");
+                },
+                child: const Text(
+                  "Quên mật khẩu?",
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
               ),
             ],
           ),
