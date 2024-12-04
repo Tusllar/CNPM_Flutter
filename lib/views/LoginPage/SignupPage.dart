@@ -1,4 +1,4 @@
-import 'package:dangnhap/views/AdditionalInforPage.dart';
+import 'package:dangnhap/views/LoginPage/AdditionalInforPage.dart';
 import 'package:flutter/cupertino.dart';
 
 class SignupPage extends StatelessWidget {

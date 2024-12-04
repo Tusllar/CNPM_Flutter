@@ -1,4 +1,4 @@
-import 'package:dangnhap/views/FinalInforPage.dart';
+import 'package:dangnhap/views/LoginPage/FinalInforPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
