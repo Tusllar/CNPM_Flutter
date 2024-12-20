@@ -9,11 +9,11 @@ class BuildTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: Text(
         Title,
         style: const TextStyle(
-            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }

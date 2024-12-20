@@ -1,5 +1,7 @@
-import 'package:dangnhap/views/BottomNavBar/BottomNavBar.dart';
+import 'package:dangnhap/views/BottomNavBar.dart';
 import 'package:flutter/material.dart';
+
+// import 'views/BottomNavBar/BottomNavBar.dart';
 
 void main() => runApp(const MyApp());
 

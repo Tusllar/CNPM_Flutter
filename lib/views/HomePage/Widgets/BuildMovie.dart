@@ -1,49 +1,38 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dangnhap/models/data.dart';
-import 'package:dangnhap/views/HomePage/Nowplaying/tets.dart';
+import 'package:dangnhap/views/InforMovie/ShowInfor.dart';
 import 'package:flutter/material.dart';
 
-class Nowplaying extends StatefulWidget {
-  const Nowplaying(
-      {super.key,
-      required this.data1,
-      required this.headlineText,
-      required this.size});
-  final Future<List<Movie>> data1;
-  final String headlineText;
+import '../../../models/data.dart';
+
+class Buildmovie extends StatefulWidget {
+  const Buildmovie({super.key, required this.popular, required this.size});
+  final Future<List<Movie2>> popular;
   final Size size;
+
   @override
-  State<Nowplaying> createState() => _NowplayingState();
+  State<Buildmovie> createState() => _BuildmovieState();
 }
 
-class _NowplayingState extends State<Nowplaying> {
-  int _currentIndex = 0;
+class _BuildmovieState extends State<Buildmovie> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Movie>>(
-        future: widget.data1,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No movies found'));
-          }
-          List<Movie> movies = snapshot.data!;
+    int _currentIndex = 0;
+    return FutureBuilder<List<Movie2>>(
+      future: widget.popular,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        } else if (snapshot.hasData) {
+          final movies = snapshot.data!;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20, top: 20, bottom: 10),
-                child: Text(
-                  widget.headlineText,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 25),
-                ),
-              ),
               const SizedBox(
                 width: 20,
               ),
@@ -55,7 +44,7 @@ class _NowplayingState extends State<Nowplaying> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Moviedetailpage(),
+                          builder: (context) => Showinfor(movie2: movie),
                         ),
                       );
                     },
@@ -69,7 +58,10 @@ class _NowplayingState extends State<Nowplaying> {
                             image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                movie.posterPath,
+                                movie.posterPath != null &&
+                                        movie.posterPath!.isNotEmpty
+                                    ? 'https://image.tmdb.org/t/p/w500${movie.posterPath}'
+                                    : 'https://yourdefaultimageurl.com/default.jpg',
                               ),
                             ),
                           ),
@@ -91,7 +83,7 @@ class _NowplayingState extends State<Nowplaying> {
                                 padding:
                                     const EdgeInsets.only(bottom: 8, left: 8),
                                 child: Text(
-                                  movie.title,
+                                  movie.title ?? 'No Title',
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
@@ -141,6 +133,12 @@ class _NowplayingState extends State<Nowplaying> {
               ),
             ],
           );
-        });
+        } else {
+          return const Center(
+            child: Text('No data found'),
+          );
+        }
+      },
+    );
   }
 }

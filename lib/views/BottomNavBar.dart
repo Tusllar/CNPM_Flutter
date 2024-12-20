@@ -1,6 +1,8 @@
-import 'package:dangnhap/views/BottomNavBar/Screens/HomeScreen.dart';
-import 'package:dangnhap/views/HomePage/HomeSearch/HomeSearch.dart';
+import 'package:dangnhap/views/HomePage/HomePage.dart';
 import 'package:flutter/material.dart';
+
+import 'SearchPage/HomeSearch.dart';
+import 'SetPerson/Setting.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -25,8 +27,8 @@ class BottomNavBar extends StatelessWidget {
                 text: "Search",
               ),
               Tab(
-                icon: Icon(Icons.photo_library_outlined),
-                text: "New & Hot",
+                icon: Icon(Icons.person),
+                text: "Setting",
               ),
             ],
             unselectedLabelColor: Color(0xFF999999),
@@ -34,10 +36,11 @@ class BottomNavBar extends StatelessWidget {
             indicatorColor: Colors.transparent,
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            HomeScreen(),
-            SearchMovie(size: size),
+            Homepage(),
+            Homesearch(),
+            Setting(),
             // SearchScreen(),
             // MoreScreen(),
           ],
