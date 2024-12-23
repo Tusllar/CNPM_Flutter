@@ -1,28 +1,54 @@
-class Movie1 {
-  final String? title;
-  final String? overview;
-  final String? releaseDate;
-  final String? posterPath;
-  final String? backdropPath;
-  final int? id;
+class Date {
+  final int id;
+  final int? movie_id;
+  final String? date;
 
-  Movie1({
-    required this.posterPath,
+  Date({
     required this.id,
-    required this.backdropPath,
-    required this.title,
-    required this.overview,
-    required this.releaseDate,
+    required this.movie_id,
+    required this.date,
   });
 
-  factory Movie1.fromJson(Map<String, dynamic> json) {
-    return Movie1(
-      title: json['title'] as String?,
-      overview: json['overview'] as String?,
-      releaseDate: json['release_date'] as String?,
-      posterPath: json['poster_path'] as String?,
-      backdropPath: json['backdrop_path'] as String?,
-      id: json['id'] as int?,
+  factory Date.fromJson(Map<String, dynamic> json) {
+    return Date(
+      id: json['id'],
+      movie_id: json['movie_id'],
+      date: json['date'],
+    );
+  }
+}
+
+class Time {
+  final int id;
+  final int? schedule_id;
+  final String? time;
+
+  Time({
+    required this.id,
+    required this.schedule_id,
+    required this.time,
+  });
+
+  factory Time.fromJson(Map<String, dynamic> json) {
+    return Time(
+      id: json['id'],
+      schedule_id: json['schedule_id'],
+      time: json['time'],
+    );
+  }
+}
+
+class Seat {
+  final Set<String> seats;
+
+  Seat({
+    required this.seats,
+  });
+  // Factory constructor để tạo đối tượng Seat từ JSON
+  factory Seat.fromJson(Map<String, dynamic> json) {
+    // Chuyển đổi danh sách ghế (List) thành Set<String>
+    return Seat(
+      seats: Set<String>.from(json['seats']),
     );
   }
 }

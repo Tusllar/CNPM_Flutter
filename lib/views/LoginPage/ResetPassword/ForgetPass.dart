@@ -1,4 +1,5 @@
-import 'package:dangnhap/views/LoginPage/ResetPassword.dart';
+import 'package:dangnhap/controller/APIservice/ApiLogin.dart';
+import 'package:dangnhap/views/LoginPage/ResetPassword/ResetPassword.dart';
 import 'package:flutter/material.dart';
 
 class Forgetpass extends StatelessWidget {
@@ -7,6 +8,7 @@ class Forgetpass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
+    ApiLogin apiLogin = ApiLogin();
     return Scaffold(
       backgroundColor: const Color(0XFFE4EBE5),
       body: Stack(
@@ -87,11 +89,59 @@ class Forgetpass extends StatelessWidget {
                   const SizedBox(height: 40),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Resetpassword()));
+                      onPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          },
+                        );
+                        try {
+                          final resuft =
+                              await apiLogin.checkEmail(emailController.text);
+                          Navigator.pop(context);
+                          if (resuft == 200) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Resetpassword(
+                                        email: emailController.text)));
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const AlertDialog(
+                                    title: Text(
+                                      'Email không tồn tại',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.cyanAccent),
+                                    ),
+                                    content: Text('Vui lòng nhập lại email'),
+                                  );
+                                });
+                          }
+                        } catch (e) {
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: Colors.white,
+                                title: const Text(
+                                  'Lỗi kết nối',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                content: Text(
+                                  'Không thể kết nối: $e',
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              );
+                            },
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0XFF0077FF),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/data.dart';
+import '../../InforMovie/ShowInfor.dart';
 
 class BuildUpcoming extends StatelessWidget {
   const BuildUpcoming({
@@ -35,20 +36,38 @@ class BuildUpcoming extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                          fit: BoxFit.cover,
-                          height: 120,
-                          width: 120,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Showinfor(movie2: movie),
+                            ),
+                          );
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            '${movie.posterPath}',
+                            fit: BoxFit.cover,
+                            height: 120,
+                            width: 120,
+                          ),
                         ),
                       ),
-                      Text(
-                        movie.title ?? " no",
-                        style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        width: 120,
+                        child: Flexible(
+                          child: Text(
+                            movie.title ?? "no",
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow:
+                                TextOverflow.ellipsis, // Xử lý văn bản dài
+                            maxLines: 1, // Giới hạn chỉ 1 dòng
+                          ),
                         ),
                       ),
                       Text(

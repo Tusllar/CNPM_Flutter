@@ -1,13 +1,22 @@
-import 'package:dangnhap/views/LoginPage/LoginPage.dart';
+import 'package:dangnhap/controller/APIservice/ApiLogin.dart';
+import 'package:dangnhap/views/LoginPage/SignIn/LoginPage.dart';
 import 'package:flutter/material.dart';
 
-class Resetpassword extends StatelessWidget {
-  const Resetpassword({super.key});
+class Resetpassword extends StatefulWidget {
+  const Resetpassword({super.key, required this.email});
+  final String email;
 
   @override
+  State<Resetpassword> createState() => _ResetpasswordState();
+}
+
+class _ResetpasswordState extends State<Resetpassword> {
+  @override
   Widget build(BuildContext context) {
-    // final TextEditingController emailController = TextEditingController();
+    ApiLogin apiLogin = ApiLogin();
     final TextEditingController passwordController = TextEditingController();
+    final TextEditingController comfirmpasswordController =
+        TextEditingController();
     return Scaffold(
       backgroundColor: const Color(0XFFE4EBE5),
       body: Stack(
@@ -36,7 +45,7 @@ class Resetpassword extends StatelessWidget {
                         },
                         icon: const Icon(Icons.arrow_back_ios_new_outlined),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       const Text(
                         'Back',
                         style: TextStyle(
@@ -68,7 +77,7 @@ class Resetpassword extends StatelessWidget {
                     controller: passwordController,
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Color(0xffA7CEAB),
+                      fillColor: const Color(0xffA7CEAB),
                       labelText: "Password",
                       labelStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
@@ -87,10 +96,10 @@ class Resetpassword extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   TextField(
-                    controller: passwordController,
+                    controller: comfirmpasswordController,
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Color(0xffA7CEAB),
+                      fillColor: const Color(0xffA7CEAB),
                       labelText: "Confirm Password",
                       labelStyle:
                           const TextStyle(color: Colors.black, fontSize: 15),
@@ -110,7 +119,98 @@ class Resetpassword extends StatelessWidget {
                   const SizedBox(height: 40),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          },
+                        );
+                        if (passwordController.text.isNotEmpty &&
+                            comfirmpasswordController.text.isNotEmpty) {
+                          if (passwordController.text ==
+                              comfirmpasswordController.text) {
+                            try {
+                              Navigator.pop(context);
+                              final resuft = await apiLogin.resetpass(
+                                  widget.email, passwordController.text);
+                              if (resuft == 200) {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        backgroundColor: Colors.white,
+                                        title: const Text(
+                                          'Cập nhật mật khẩu thành công',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue,
+                                          ),
+                                        ),
+                                        content: const Text(
+                                          'Tiếp tục đăng nhập',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LoginPage()));
+                                              },
+                                              child: const Text(
+                                                'Go To Login',
+                                              ))
+                                        ],
+                                      );
+                                    });
+                              }
+                            } catch (e) {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    backgroundColor: Colors.white,
+                                    title: const Text(
+                                      'Lỗi kết nối',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    content: Text(
+                                      'Không thể kết nối: $e',
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          } else {
+                            Navigator.pop(context);
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const AlertDialog(
+                                    title: Text('Mật khẩu không khớp'),
+                                    content: Text('Kiểm tra lại mật khẩu'),
+                                  );
+                                });
+                          }
+                        } else {
+                          Navigator.pop(context);
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const AlertDialog(
+                                  title: Text('Vui lòng nhập mật khẩu '),
+                                );
+                              });
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0XFF0077FF),
                         minimumSize: const Size(300, 50),

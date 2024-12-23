@@ -53,7 +53,7 @@ class ListMovie extends StatelessWidget {
                           image: NetworkImage(
                             movie.posterPath != null &&
                                     movie.posterPath!.isNotEmpty
-                                ? 'https://image.tmdb.org/t/p/w500${movie.posterPath}'
+                                ? '${movie.posterPath}'
                                 : 'https://yourdefaultimageurl.com/default.jpg',
                           ),
                         ),

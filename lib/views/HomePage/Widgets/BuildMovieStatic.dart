@@ -59,16 +59,23 @@ class _BuildmoviestaticState extends State<Buildmoviestatic> {
                           image: NetworkImage(
                             movie.posterPath != null &&
                                     movie.posterPath!.isNotEmpty
-                                ? 'https://image.tmdb.org/t/p/w500${movie.posterPath}'
+                                ? '${movie.posterPath}'
                                 : 'https://yourdefaultimageurl.com/default.jpg',
                           ),
                         ),
                       ),
-                      child: Text(
-                        movie.releaseDate ?? "",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyanAccent),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            movie.releaseDate ?? "",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.cyanAccent,
+                                fontSize: 10),
+                          ),
+                        ],
                       ),
                     ),
                   );

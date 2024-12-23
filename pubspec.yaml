@@ -43,6 +43,12 @@ dependencies:
   flick_video_player: ^0.9.0
   youtube_player_flutter: ^9.1.1
   flutter_inappwebview: ^6.1.5
+  flutter_secure_storage: ^9.2.2
+  image_picker: ^1.1.2
+  speech_to_text: ^7.0.0
+  permission_handler: ^10.0.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -75,7 +81,7 @@ flutter:
      - assets/images/logo.png
      - assets/images/login.jpg
      - assets/images/login1.png
-     - assets/images/l.png
+     - assets/images/lo.png
      - assets/images/h1.png
      - assets/images/logup.png
      - assets/images/Screen.png
@@ -83,6 +89,7 @@ flutter:
      - assets/images/goolge.png
      - assets/images/facebook.png
      - assets/images/ii.png
+     - assets/images/hi.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer t11o one or more resolution-specific "variants", see

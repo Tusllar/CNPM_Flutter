@@ -1,41 +1,9 @@
+import 'package:dangnhap/controller/APIservice/ApiLogin.dart';
 import 'package:dangnhap/views/BottomNavBar.dart';
-import 'package:dangnhap/views/LoginPage/ForgetPass.dart';
-import 'package:dangnhap/views/LoginPage/SignupPage.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color(0XFFE4EBE5),
-        appBar: AppBar(
-          backgroundColor: const Color(0XFFE4EBE5),
-          title: const Text(
-            "Back",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-          leading: TextButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const BottomNavBar()));
-              },
-              child: const Icon(
-                Icons.arrow_back_outlined,
-                size: 30,
-                color: Colors.black,
-              )),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              LoginForm(),
-            ],
-          ),
-        ));
-  }
-}
+import '../../ResetPassword/ForgetPass.dart';
+import '../../SignUp/SignupPage.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -45,6 +13,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final ApiLogin apiLogin = ApiLogin();
   bool _obs = true;
 
   @override
@@ -74,36 +43,21 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
           ),
+
           const SizedBox(height: 30), // Adjusted spacing
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Color(0xffA7CEAB),
-              labelText: "Email",
-              labelStyle: const TextStyle(color: Colors.black),
-              hintText: "ex@email.com",
-              hintStyle: const TextStyle(color: Colors.grey),
-              suffixIcon: const Icon(
-                Icons.email,
-              ),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: Colors.white)),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide:
-                    const BorderSide(color: Colors.blue), // Màu viền khi focus
-              ),
-            ),
-            keyboardType: TextInputType.emailAddress,
+          BuildTextField(
+            Controller: emailController,
+            laber: 'Email',
+            hint: 'ex@gmail.com',
+            type: TextInputType.emailAddress,
+            icon: Icons.email,
           ),
           const SizedBox(height: 16),
           TextField(
             controller: passwordController,
             decoration: InputDecoration(
               filled: true,
-              fillColor: Color(0xffA7CEAB),
+              fillColor: const Color(0xffA7CEAB),
               labelText: "Password",
               labelStyle: const TextStyle(color: Colors.black),
               hintText: "Password",
@@ -133,10 +87,12 @@ class _LoginFormState extends State<LoginForm> {
             children: [
               TextButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Forgetpass()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Forgetpass()));
                   },
-                  child: Text(
+                  child: const Text(
                     'Forgot password?',
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   )),
@@ -144,10 +100,105 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () {
-              // Xử lý đăng nhập
-              print("Email: ${emailController.text}");
-              print("Mật khẩu: ${passwordController.text}");
+            onPressed: () async {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const Center(child: CircularProgressIndicator());
+                },
+              );
+              try {
+                final String result = await apiLogin.Signin(
+                    emailController.text, passwordController.text);
+                Navigator.pop(context);
+                if (result == '200') {
+                  // await saveUserData(id, email, name, pass);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor: Colors.white,
+                          title: const Text(
+                            'Đăng Nhập Thành Công',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BottomNavBar()),
+                                    ModalRoute.withName('/'),
+                                  );
+                                },
+                                child: const Text(
+                                  'Go To Login',
+                                ))
+                          ],
+                        );
+                      });
+                } else if (result == '401') {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const AlertDialog(
+                        backgroundColor: Colors.white,
+                        title: Text(
+                          'Mật khẩu không chính xác',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        content: Text(
+                          'Vui lòng nhập lại mật khẩu.',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const AlertDialog(
+                        backgroundColor: Colors.white,
+                        title: Text(
+                          'Tài Khoản không tồn tại',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        content: Text(
+                          'Vui lòng nhập đăng kí.',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      );
+                    },
+                  );
+                }
+              } catch (e) {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: Colors.white,
+                      title: const Text(
+                        'Lỗi kết nối',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      content: Text(
+                        'Không thể kết nối: $e',
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    );
+                  },
+                );
+              }
+
+              // apiLogin.getUserData();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0XFF0077FF),
@@ -204,7 +255,7 @@ class _LoginFormState extends State<LoginForm> {
               ],
             ),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           ElevatedButton(
             onPressed: () {
               // Xử lý đăng nhập
@@ -235,7 +286,7 @@ class _LoginFormState extends State<LoginForm> {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -262,6 +313,47 @@ class _LoginFormState extends State<LoginForm> {
           )
         ],
       ),
+    );
+  }
+}
+
+class BuildTextField extends StatelessWidget {
+  const BuildTextField(
+      {super.key,
+      required this.Controller,
+      required this.laber,
+      required this.hint,
+      this.icon,
+      required this.type});
+
+  final TextEditingController Controller;
+  final String laber;
+  final String hint;
+  final IconData? icon;
+  final TextInputType type;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: Controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0xffA7CEAB),
+        labelText: laber,
+        labelStyle: const TextStyle(color: Colors.black),
+        hintText: hint,
+        hintStyle: const TextStyle(color: Colors.grey),
+        suffixIcon: icon != null ? Icon(icon) : null,
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.white)),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide:
+              const BorderSide(color: Colors.blue), // Màu viền khi focus
+        ),
+      ),
+      keyboardType: type,
     );
   }
 }

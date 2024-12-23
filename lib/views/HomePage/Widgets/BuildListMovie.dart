@@ -8,10 +8,12 @@ class BuildListMovie extends StatelessWidget {
     super.key,
     required this.size,
     required this.movie,
+    required this.movie1,
   });
 
   final Size size;
   final Future<List<Movie2>> movie;
+  final Future<List<Movie2>> movie1;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class BuildListMovie extends StatelessWidget {
               tabs: [
                 Tab(text: "For You"),
                 Tab(text: "Popular"),
-                Tab(text: "Trending"),
+                // Tab(text: "Trending"),
               ],
               indicatorColor: Colors.cyanAccent,
               unselectedLabelColor: Colors.white,
@@ -38,74 +40,9 @@ class BuildListMovie extends StatelessWidget {
               width: size.width, // Đặt chiều cao cho TabBarView
               child: TabBarView(
                 children: [
-                  FutureBuilder<List<Movie2>>(
-                    future: movie,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
-                      } else if (snapshot.hasData) {
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            final movie = snapshot.data![index];
-                            return Container(
-                              margin: const EdgeInsets.all(15.0),
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                                      height: 100,
-                                      width: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Text(movie.title ?? "No"),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      } else {
-                        return const Center(child: Text('No data'));
-                      }
-                    },
-                  ),
-                  FutureBuilder<List<Movie2>>(
-                    future: movie,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
-                      } else if (snapshot.hasData) {
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            final movie = snapshot.data![index];
-                            return Container(
-                              margin: const EdgeInsets.all(15.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      } else {
-                        return const Center(child: Text('No data'));
-                      }
-                    },
-                  ),
+                  ListMovie(movie: movie1),
                   ListMovie(movie: movie),
+                  // ListMovie(movie: movie1),
                 ],
               ),
             ),
