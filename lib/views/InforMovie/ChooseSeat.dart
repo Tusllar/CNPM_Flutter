@@ -42,7 +42,9 @@ class _ChooseseatState extends State<Chooseseat> {
           Expanded(child: _buildSeatsGrid()),
           _buildSeatsLegend(),
           _buildBookingSummary(),
-          _buildBuyButton(),
+          if (selectedSeats.isNotEmpty) ...[
+            _buildBuyButton(),
+          ]
         ],
       ),
     );
