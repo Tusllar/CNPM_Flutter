@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dangnhap/views/InforMovie/ShowInfor.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/data.dart';
+import '../../../models/class_movie.dart';
 
 class Buildmovie extends StatefulWidget {
   const Buildmovie({super.key, required this.popular, required this.size});

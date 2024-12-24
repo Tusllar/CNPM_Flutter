@@ -5,10 +5,10 @@ import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../controller/APIservice/ApiService.dart';
-import '../../models/data.dart';
+import '../../models/class_movie.dart';
+import '../../widget.dart';
 import 'Widgets/BuildListMovie.dart';
 import 'Widgets/BuildUpcoming.dart';
-import 'Widgets/UserHome.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -54,52 +54,91 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     // int _currentIndex = 0;
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 50),
-          const UserHome(),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: YoutubePlayer(
-              controller: _controller,
-              showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.cyan,
+    return Scaffold(
+      // appBar: AppBar(
+      //   backgroundColor: Colors.lightGreenAccent,
+      //   title: Center(
+      //     child: Image.asset(
+      //       'assets/images/lo.png',
+      //       height: 80,
+      //     ),
+      //   ),
+      // ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 50),
+            // const UserHome(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: BuildText(
+                text: 'For You',
+                color1: Colors.yellowAccent,
+                color2: Colors.lightGreenAccent,
+              ),
             ),
-          ),
-          buildPadding(text: 'Now Playing'),
-          Buildmovie(popular: comming, size: size),
-          buildPadding(text: 'Coming Soon'),
-          BuildUpcoming(size: size, movie: now),
-          buildPadding(text: 'Now Playing'),
-          BuildUpcoming(size: size, movie: comming),
-          // const Padding(
-          //   padding: EdgeInsets.only(top: 15, bottom: 10),
-          //   child: Center(
-          //     child: Text(
-          //       'Continue Watching',
-          //       style: TextStyle(
-          //           fontSize: 16,
-          //           fontWeight: FontWeight.bold,
-          //           color: Colors.white),
-          //     ),
-          //   ),
-          // ),
-          // Buildmoviestatic(popular: comming, size: size),
-          BuildListMovie(
-            size: size,
-            movie: now,
-            movie1: comming,
-          ),
-        ],
+            // const BuildPadding(text: 'For You'),
+            Buildmovie(popular: comming, size: size),
+            const BuildText(
+              text: 'Stream YouToBe',
+              color1: Colors.orange,
+              color2: Colors.red,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: YoutubePlayer(
+                controller: _controller,
+                showVideoProgressIndicator: true,
+                progressIndicatorColor: Colors.cyan,
+              ),
+            ),
+            const SizedBox(height: 20),
+            buildTextPadding(text: 'Coming Soon', s: size),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: Divider(
+                thickness: 3,
+                color: Colors.grey,
+              ),
+            ),
+            BuildUpcoming(size: size, movie: now),
+            buildTextPadding(text: ' Now Playing', s: size),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: Divider(
+                thickness: 3,
+                color: Colors.grey,
+              ),
+            ),
+            BuildUpcoming(size: size, movie: comming),
+            // const Padding(
+            //   padding: EdgeInsets.only(top: 15, bottom: 10),
+            //   child: Center(
+            //     child: Text(
+            //       'Continue Watching',
+            //       style: TextStyle(
+            //           fontSize: 16,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.white),
+            //     ),
+            //   ),
+            // ),
+            // Buildmoviestatic(popular: comming, size: size),
+            BuildListMovie(
+              size: size,
+              movie: now,
+              movie1: comming,
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Padding buildPadding({required String text}) {
+  Padding buildTextPadding({required String text, required Size s}) {
     return Padding(
-      padding: const EdgeInsets.only(left: 35, top: 15, bottom: 10),
+      padding: EdgeInsets.only(left: s.width / 2 - 50),
       child: Text(
         text,
         style: const TextStyle(

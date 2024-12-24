@@ -3,8 +3,8 @@ import 'package:dangnhap/controller/APIservice/ApiService.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/data.dart';
-import '../../models/data1.dart';
+import '../../models/class_movie.dart';
+import '../../models/class_schedule.dart';
 import 'WidgetSelect/ButtonDateTime.dart';
 import 'WidgetSelect/StackImage.dart';
 

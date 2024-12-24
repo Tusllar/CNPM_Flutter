@@ -77,32 +77,32 @@ class ApiLogin {
     }
   }
 
-  Future<String> getInfor(String? email, String? pass) async {
-    const url = 'http://192.168.1.4:80/signin';
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        body: json.encode({'email': email, 'password': pass}),
-      );
-      if (response.statusCode == 200) {
-        print('Loggin sucessfull!');
-        return '200';
-      } else if (response.statusCode == 401) {
-        print('Invalid PW. Status code: ${response.statusCode}');
-        print('Response: ${response.body}');
-        return '401';
-      } else {
-        print('Failed to save booking. Status code: ${response.statusCode}');
-        print('Response: ${response.body}');
-        return '404';
-      }
-    } catch (e) {
-      // throw Exception('Connection error: $e');
-      print(e);
-      return '500';
-    }
-  }
+  // Future<String> getInfor(String? email, String? pass) async {
+  //   const url = 'http://192.168.1.4:80/signin';
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(url),
+  //       headers: {'Content-Type': 'application/json; charset=UTF-8'},
+  //       body: json.encode({'email': email, 'password': pass}),
+  //     );
+  //     if (response.statusCode == 200) {
+  //       print('Loggin sucessfull!');
+  //       return '200';
+  //     } else if (response.statusCode == 401) {
+  //       print('Invalid PW. Status code: ${response.statusCode}');
+  //       print('Response: ${response.body}');
+  //       return '401';
+  //     } else {
+  //       print('Failed to save booking. Status code: ${response.statusCode}');
+  //       print('Response: ${response.body}');
+  //       return '404';
+  //     }
+  //   } catch (e) {
+  //     // throw Exception('Connection error: $e');
+  //     print(e);
+  //     return '500';
+  //   }
+  // }
 
   Future<int> checkEmail(String email) async {
     const url = 'http://192.168.1.4:80/checkmail';

@@ -1,9 +1,11 @@
 import 'dart:convert';
 
-import 'package:dangnhap/models/data.dart';
-import 'package:dangnhap/models/data1.dart';
+import 'package:dangnhap/models/class_schedule.dart';
+import 'package:dangnhap/models/class_ticket.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+
+import '../../models/class_movie.dart';
 
 class ApiService {
   Future<List<Movie2>> Popular() async {

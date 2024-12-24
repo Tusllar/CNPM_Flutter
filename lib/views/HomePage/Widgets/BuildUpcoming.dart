@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/data.dart';
+import '../../../models/class_movie.dart';
 import '../../InforMovie/ShowInfor.dart';
 
 class BuildUpcoming extends StatelessWidget {

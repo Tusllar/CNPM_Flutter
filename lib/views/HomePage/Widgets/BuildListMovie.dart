@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/data.dart';
+import '../../../models/class_movie.dart';
 import '../../SearchPage/Widget/ListMovie.dart';
 
 class BuildListMovie extends StatelessWidget {

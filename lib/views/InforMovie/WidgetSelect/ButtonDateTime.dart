@@ -2,8 +2,8 @@ import 'package:dangnhap/views/InforMovie/ChooseSeat.dart';
 import 'package:flutter/material.dart';
 
 import '../../../controller/APIservice/ApiService.dart';
-import '../../../models/data.dart';
-import '../../../models/data1.dart';
+import '../../../models/class_movie.dart';
+import '../../../models/class_schedule.dart';
 
 class ButtonDateTime extends StatefulWidget {
   const ButtonDateTime({

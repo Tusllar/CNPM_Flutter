@@ -3,7 +3,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../controller/APIservice/ApiService.dart';
 import '../../main.dart';
-import '../../models/data.dart';
+import '../../models/class_movie.dart';
 import 'Widget/BuildTitle.dart';
 import 'Widget/ListMovie.dart';
 
@@ -25,7 +25,6 @@ class _HomesearchState extends State<Homesearch> {
   late Future<List<Movie2>> movie;
   bool key = false;
   final TextEditingController _searchController = TextEditingController();
-
   final SpeechToText _speechToText = SpeechToText();
   bool _speechEnabled = false;
   String _wordsSpoken = "";
@@ -71,7 +70,6 @@ class _HomesearchState extends State<Homesearch> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +140,7 @@ class _HomesearchState extends State<Homesearch> {
             ListMovie(movie: movie),
           ] else ...[
             const BuildTitle(Title: "Phim đang chiếu"),
-            const SizedBox(height: 20),
+            // const SizedBox(height: 20),
             ListMovie(movie: now),
             const BuildTitle(Title: "Phim sắp ra mắt"),
             ListMovie(movie: comming),

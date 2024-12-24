@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../models/data.dart';
+import '../../models/class_movie.dart';
 import '../SetPerson/Widget/ButtomPop.dart';
 import 'WidgetSelect/TitleMovie.dart';
 

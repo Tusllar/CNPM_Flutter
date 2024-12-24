@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/data.dart';
+import '../../../models/class_movie.dart';
 
 class TitleMovie extends StatelessWidget {
   const TitleMovie({

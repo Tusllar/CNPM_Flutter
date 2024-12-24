@@ -1,7 +1,7 @@
 import 'package:dangnhap/views/InforMovie/ShowInfor.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/data.dart';
+import '../../../models/class_movie.dart';
 
 class ListMovie extends StatelessWidget {
   const ListMovie({
