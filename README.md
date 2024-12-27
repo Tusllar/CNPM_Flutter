@@ -1,6 +1,8 @@
-# dangnhap
+# App movie
 
-A new Flutter project.
+Create App Booking Movie Online Using Flutter
+##Contact
+- [Face](https://www.facebook.com/tran.tucot.1/)
 
 ## Getting Started
 
