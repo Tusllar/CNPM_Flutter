@@ -1,4 +1,4 @@
-name: dangnhap
+name: Movie
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -47,7 +47,7 @@ dependencies:
   image_picker: ^1.1.2
   speech_to_text: ^7.0.0
   permission_handler: ^10.0.0
-
+  flutter_launcher_icons: ^0.14.2
 
 
 dev_dependencies:
@@ -90,8 +90,13 @@ flutter:
      - assets/images/facebook.png
      - assets/images/ii.png
      - assets/images/hi.png
+     - assets/images/na.png
+     - assets/images/b.png
   #   - images/a_dot_ham.jpeg
-
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logup.png"
   # An image asset can refer t11o one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

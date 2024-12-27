@@ -1,13 +1,14 @@
 import 'dart:convert';
 
-import 'package:dangnhap/controller/APIservice/Storage.dart';
 import 'package:http/http.dart' as http;
+
+import 'Storage.dart';
 
 final Storage s = Storage();
 
 class ApiLogin {
   Future<String> Signup(String? username, String? email, String? pass) async {
-    const url = 'http://192.168.1.4:80/signup';
+    const url = 'http://10.10.31.49:80/signup';
     try {
       final response = await http.post(
         Uri.parse(url),
@@ -35,7 +36,7 @@ class ApiLogin {
   }
 
   Future<String> Signin(String? email, String? pass) async {
-    const url = 'http://192.168.1.4:80/signin';
+    const url = 'http://10.10.31.49:80/signin';
     // const s = FlutterSecureStorage();
     try {
       final response = await http.post(
@@ -105,7 +106,7 @@ class ApiLogin {
   // }
 
   Future<int> checkEmail(String email) async {
-    const url = 'http://192.168.1.4:80/checkmail';
+    const url = 'http://10.10.31.49:80/checkmail';
     try {
       final response = await http.post(Uri.parse(url),
           headers: {'Content-Type': 'application/json;charset=UTF-8'},
@@ -121,7 +122,7 @@ class ApiLogin {
   }
 
   Future<int> resetpass(String email, String? pass) async {
-    const url = 'http://192.168.1.4:80/resetpass';
+    const url = 'http://10.10.31.49:80/resetpass';
     try {
       final response = await http.post(Uri.parse(url),
           headers: {'Content-Type': 'application/json;charset=UTF-8'},

@@ -1,8 +1,8 @@
-import 'package:dangnhap/controller/APIservice/ApiService.dart';
-import 'package:dangnhap/views/InforMovie/Ticket.dart';
+import 'package:Movie/controller/APIservice/ApiService.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/class_movie.dart';
+import 'Ticket.dart';
 
 class Chooseseat extends StatefulWidget {
   final String date;

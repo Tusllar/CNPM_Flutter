@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dangnhap/controller/APIservice/ApiService.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../controller/APIservice/ApiService.dart';
 import '../../models/class_movie.dart';
 import '../../models/class_schedule.dart';
 import 'WidgetSelect/ButtonDateTime.dart';

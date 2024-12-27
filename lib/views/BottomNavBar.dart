@@ -1,12 +1,22 @@
-import 'package:dangnhap/views/HomePage/HomePage.dart';
 import 'package:flutter/material.dart';
 
+import '../controller/APIservice/ApiService.dart';
+import '../models/class_video_id.dart';
+import 'HomePage/HomePage.dart';
 import 'SearchPage/HomeSearch.dart';
 import 'SetPerson/Setting.dart';
 
-class BottomNavBar extends StatelessWidget {
+class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
+  @override
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  ApiService fetmovie = ApiService();
+  late Future<Video> id;
+  late List<String> video;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;

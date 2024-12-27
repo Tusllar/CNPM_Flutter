@@ -1,6 +1,7 @@
-import 'package:dangnhap/controller/APIservice/ApiLogin.dart';
-import 'package:dangnhap/views/LoginPage/ResetPassword/ResetPassword.dart';
 import 'package:flutter/material.dart';
+
+import '../../../controller/APIservice/ApiLogin.dart';
+import 'ResetPassword.dart';
 
 class Forgetpass extends StatelessWidget {
   const Forgetpass({super.key});
@@ -17,7 +18,7 @@ class Forgetpass extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/ii.png'), // Đường dẫn hình ảnh
+                image: AssetImage('assets/images/b.png'), // Đường dẫn hình ảnh
                 fit: BoxFit.cover, // Phủ toàn màn hình
               ),
             ),
@@ -25,17 +26,22 @@ class Forgetpass extends StatelessWidget {
           // Nội dung phía trên hình nền
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 80),
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 100),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(width: 50),
                   Row(
                     children: [
                       IconButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: const Icon(Icons.arrow_back_ios_new_outlined),
+                        icon: const Icon(
+                          Icons.arrow_back_ios_new_outlined,
+                          size: 30,
+                          color: Colors.white,
+                        ),
                       ),
                       const SizedBox(width: 10),
                       const Text(
@@ -43,48 +49,77 @@ class Forgetpass extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                            color: Colors.white),
                       )
                     ],
                   ),
-                  const SizedBox(height: 50),
-                  const Text(
-                    'Forgot \nPassword',
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Image.asset(
+                      'assets/images/logup.png',
+                      height: 100,
+                      width: 300,
                     ),
                   ),
+                  // const SizedBox(height: 50),
                   const Text(
-                    'Insert your login E-mail and get a forgot \npassword request.',
+                    'Forgot Password',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black26,
+                      color: Colors.white,
                     ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Go Back To',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Sign In',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 30),
-                  TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color(0xffA7CEAB)
-                          .withOpacity(0.8), // Màu nền ô nhập
-                      labelText: "Email",
-                      labelStyle: const TextStyle(color: Colors.black),
-                      hintText: "ex@email.com",
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      suffixIcon: const Icon(Icons.email),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: TextField(
+                      controller: emailController,
+                      style: TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white, // Màu nền ô nhập
+                        hintText: "ex@email.com",
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        suffixIcon: const Icon(
+                          Icons.email,
+                          color: Colors.blue,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.blue),
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.blue),
-                      ),
+                      keyboardType: TextInputType.emailAddress,
                     ),
-                    keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 40),
                   Center(
@@ -144,9 +179,10 @@ class Forgetpass extends StatelessWidget {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0XFF0077FF),
-                        minimumSize: const Size(300, 50),
-                      ),
+                          backgroundColor: const Color(0XFF0077FF),
+                          minimumSize: const Size(250, 50),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15))),
                       child: const Text(
                         "Get Email",
                         style: TextStyle(
@@ -157,31 +193,6 @@ class Forgetpass extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 100),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Go Back To',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          'Sign In',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),

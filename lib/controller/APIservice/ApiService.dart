@@ -1,11 +1,16 @@
 import 'dart:convert';
 
-import 'package:dangnhap/models/class_schedule.dart';
-import 'package:dangnhap/models/class_ticket.dart';
+import 'package:Movie/models/class_video_id.dart';
 import 'package:dio/dio.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/class_movie.dart';
+import '../../models/class_schedule.dart';
+import '../../models/class_ticket.dart';
+
+// String apiurl = dotenv.env['API_URL'] ?? 'None';
+const String host = '10.10.31.49';
 
 class ApiService {
   Future<List<Movie2>> Popular() async {
@@ -63,7 +68,7 @@ class ApiService {
   }
 
   Future<List<Ticket>> ticketapp(int? id) async {
-    const url = "http://192.168.1.4:80/getticket";
+    const url = "http://10.10.31.49:80/getticket";
     // final dio = Dio();
     try {
       final response = await http.post(
@@ -86,7 +91,7 @@ class ApiService {
   }
 
   Future<void> removeBooking(int? ticket_id) async {
-    const url = 'http://192.168.1.4:80/remove'; // Thay đổi địa chỉ IP phù hợp
+    const url = "http://10.10.31.49:80/remove"; // Thay đổi địa chỉ IP phù hợp
 
     try {
       final response = await http.post(
@@ -112,7 +117,7 @@ class ApiService {
 
   //nowplaying
   Future<List<Movie2>> Nowplay() async {
-    const link = "http://192.168.1.4:80/nowplaying";
+    const link = "http://10.10.31.49:80/nowplaying";
     final dio = Dio();
     final response = await dio.get(link);
     if (response.statusCode == 200) {
@@ -125,7 +130,7 @@ class ApiService {
   }
 
   Future<List<Movie2>> Comming() async {
-    const link = "http://192.168.1.4:80/commingsoon";
+    const link = "http://10.10.31.49:80/commingsoon";
     final dio = Dio();
     final response = await dio.get(link);
     if (response.statusCode == 200) {
@@ -138,7 +143,7 @@ class ApiService {
   }
 
   Future<List<Date>> getDate(int? id) async {
-    const url = 'http://192.168.1.4:80/getdate';
+    const url = "http://10.10.31.49:80/getdate";
     try {
       final response = await http.post(
         Uri.parse(url),
@@ -161,7 +166,7 @@ class ApiService {
     if (scheduleId == null) {
       return []; // No time data if no schedule is selected
     }
-    const url = 'http://192.168.1.4:80/gettime';
+    const url = 'http://10.10.31.49:80/gettime';
     try {
       final response = await http.post(
         Uri.parse(url),
@@ -182,7 +187,7 @@ class ApiService {
 
   Future<Seat> fetchSeats(int? time_id) async {
     // URL của API (thay thế với URL thực tế của bạn)
-    const url = 'http://192.168.1.4:80/seat';
+    const url = 'http://10.10.31.49:80/seat';
     // Gửi yêu cầu GET đến API
     // final response = await http.get(Uri.parse(url));
     try {
@@ -211,7 +216,7 @@ class ApiService {
   }
 
   Future<int?> saveseat(int? time_id, String? seat_number) async {
-    const url = 'http://192.168.1.4:80/saveseat'; // Thay đổi địa chỉ IP phù hợp
+    const url = 'http://10.10.31.49:80/saveseat'; // Thay đổi địa chỉ IP phù hợp
 
     try {
       final response = await http.post(
@@ -243,7 +248,7 @@ class ApiService {
   ///saveticket
   Future<void> saveticket(int? user_id, int? seat_id, int? total_price) async {
     const url =
-        'http://192.168.1.4:80/saveticket'; // Thay đổi địa chỉ IP phù hợp
+        'http://10.10.31.49:80/saveticket'; // Thay đổi địa chỉ IP phù hợp
     try {
       final response = await http.post(
         Uri.parse(url),
@@ -267,14 +272,29 @@ class ApiService {
     }
   }
 
+  // 10.10.31.49
   Future<List<Movie2>> SearchMovie(String query) async {
-    final link = "http://192.168.1.4:80/search?q=$query";
+    final link = "http://10.10.31.49:80/search?q=$query";
     final dio = Dio();
     final response = await dio.get(link);
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = response.data;
       // print(jsonResponse);
       return jsonResponse.map((e) => Movie2.fromJson(e)).toList();
+    } else {
+      throw Exception('Failed to load movies');
+    }
+  }
+
+  Future<Video> video_id() async {
+    const link = "http://10.10.31.49:80/youtube";
+    final dio = Dio();
+    final response = await dio.get(link);
+
+    if (response.statusCode == 200) {
+      List<String> jsonResponse = List<String>.from(response.data['videos']);
+      print(jsonResponse);
+      return Video(movieIds: jsonResponse);
     } else {
       throw Exception('Failed to load movies');
     }

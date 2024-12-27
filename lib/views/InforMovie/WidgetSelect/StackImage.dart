@@ -1,8 +1,8 @@
-import 'package:dangnhap/views/InforMovie/WidgetSelect/TitleMovie.dart';
-import 'package:dangnhap/views/SetPerson/Widget/ButtomPop.dart';
+import 'package:Movie/views/InforMovie/WidgetSelect/TitleMovie.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/class_movie.dart';
+import '../../SetPerson/Widget/ButtomPop.dart';
 
 class StackImage extends StatelessWidget {
   const StackImage({

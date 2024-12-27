@@ -1,8 +1,8 @@
-import 'package:dangnhap/controller/APIservice/ApiService.dart';
-import 'package:dangnhap/views/BottomNavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../../controller/APIservice/ApiService.dart';
+import '../BottomNavBar.dart';
 import 'WidgetSelect/CustomButtom.dart';
 import 'WidgetSelect/NewMobiTicket.dart';
 import 'WidgetSelect/TicketWidget.dart';

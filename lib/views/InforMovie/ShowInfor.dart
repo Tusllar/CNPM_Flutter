@@ -1,4 +1,3 @@
-import 'package:dangnhap/views/InforMovie/SelectDayTime.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -6,6 +5,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../models/class_movie.dart';
 import '../SetPerson/Widget/ButtomPop.dart';
+import 'SelectDayTime.dart';
 import 'WidgetSelect/TitleMovie.dart';
 
 class Showinfor extends StatefulWidget {

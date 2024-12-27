@@ -1,9 +1,10 @@
-import 'package:dangnhap/views/BottomNavBar.dart';
+import 'package:Movie/views/BottomNavBar.dart';
 import 'package:flutter/material.dart';
-
 // import 'views/BottomNavBar/BottomNavBar.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class DarkTheme {
   static const Color darkerBackground = Color(0xFF151414); // Màu nền xanh đậm
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor:
             const Color(0xFF191B2C), // Màu nền tối xanh đậm
         textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: DarkTheme.white, // Văn bản màu trắng
+              bodyColor: Colors.white, // Văn bản màu trắng
               displayColor: DarkTheme.white, // Màu văn bản lớn màu trắng
             ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

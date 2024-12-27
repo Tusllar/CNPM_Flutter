@@ -1,6 +1,6 @@
-import 'package:dangnhap/controller/APIservice/ApiService.dart';
 import 'package:flutter/material.dart';
 
+import '../../../controller/APIservice/ApiService.dart';
 import '../../../models/class_movie.dart';
 
 class SearchMovie extends StatefulWidget {

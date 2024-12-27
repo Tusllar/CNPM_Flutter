@@ -1,10 +1,10 @@
-import 'package:dangnhap/controller/APIservice/ApiService.dart';
-import 'package:dangnhap/controller/APIservice/Storage.dart';
-import 'package:dangnhap/models/class_ticket.dart';
-import 'package:dangnhap/views/BottomNavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../../controller/APIservice/ApiService.dart';
+import '../../controller/APIservice/Storage.dart';
+import '../../models/class_ticket.dart';
+import '../BottomNavBar.dart';
 import '../LoginPage/SignIn/LoginPage.dart';
 import 'Widget/ButtomLoginout.dart';
 import 'Widget/ShowTicket.dart';

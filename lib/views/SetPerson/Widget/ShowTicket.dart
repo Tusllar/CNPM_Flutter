@@ -1,6 +1,6 @@
-import 'package:dangnhap/models/class_ticket.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/class_ticket.dart';
 import '../../InforMovie/Ticket.dart';
 
 class ShowTicket extends StatelessWidget {
